@@ -1,41 +1,56 @@
 //IIFE containing pokemonList
-let pokemonRepository = (function (){
-  let pokemonList = [
+let movieRepository = (function (){
+  let movieList = [
       {
-        name: 'Wigglytuff',
-        height: 1,
-        type: ['fairy', 'normal']
+        name: 'Thor:Love and Thunder',
+        rating: 6.7,
+        type: ['action', 'comedy']
       },
       {
-        name: 'Slowbro',
-        height: 1.6,
-        type: ['psychic', 'water']
+        name: 'Nope',
+        rating: 7.5,
+        type: ['sci-fi', 'horror']
       },
       {
-        name: 'Mr. Mime',
-        height: 1.3,
-        type: ['psychic', 'fairy']
+        name: 'Bullet Train',
+        height: 7.5,
+        type: ['action', 'comedy']
       }
     ];
 
-  function add(pokemon) {
-    pokemonList.push(pokemon);
+  function add(movie) {
+    movieList.push(movie);
   }
 
   function getAll() {
-    return pokemonList;
+    return movieList;
+  }
+
+  function showDetails(movie) {
+    console.log(movie.name);
+  }
+
+  function addListItem(movie) {
+    let movieListed = document.querySelector('.movie-list');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = movie.name;
+    button.classList.add('movie-name');
+    listItem.appendChild(button);
+    movieListed.appendChild(listItem);
+    button.addEventListener('click', showDetails(movie))
   }
 
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem
   };
 })();
 
-pokemonRepository.add({name: 'Paras', height: .3, type:['grass', 'bug']});
+movieRepository.add({name: 'Top Gun: Maverick', rating: 8.6, type:['action', 'drama']});
 
 //forEach loop to list the pokemonList
-pokemonRepository.getAll().forEach(function(pokemon) {
-  document.write(pokemon.name + ': height(' + pokemon.height + '), ' +
-  pokemon.type[0] + '/' + pokemon.type[1] + '<br>')
+movieRepository.getAll().forEach(function(movie) {
+  movieRepository.addListItem(movie);
 });

@@ -1,56 +1,61 @@
 //IIFE containing pokemonList
-let movieRepository = (function (){
-  let movieList = [
-      {
-        name: 'Thor:Love and Thunder',
-        rating: 6.7,
-        type: ['action', 'comedy']
-      },
-      {
-        name: 'Nope',
-        rating: 7.5,
-        type: ['sci-fi', 'horror']
-      },
-      {
-        name: 'Bullet Train',
-        height: 7.5,
-        type: ['action', 'comedy']
-      }
-    ];
+let pokemonRepository = (function(){
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150'
 
-  function add(movie) {
-    movieList.push(movie);
+
+  function add(pokemon) {
+    pokemonList.push(pokemon);
   }
 
   function getAll() {
-    return movieList;
+    return pokemonList;
   }
 
-  function showDetails(movie) {
-    console.log(movie.name);
+  function showDetails(pokemon) {
+    console.log(pokemon.name);
   }
 
-  function addListItem(movie) {
-    let movieListed = document.querySelector('.movie-list');
+  function addListItem(pokemon) {
+    let pokemonListed = document.querySelector('.pokemon-list');
     let listItem = document.createElement('li');
     let button = document.createElement('button');
-    button.innerText = movie.name;
-    button.classList.add('movie-name');
+    button.innerText = pokemon.name;
+    button.classList.add('pokemon-name');
     listItem.appendChild(button);
-    movieListed.appendChild(listItem);
-    button.addEventListener('click', showDetails(movie))
+    pokemonListed.appendChild(listItem);
+    button.addEventListener('click', function() {
+      showDetails(pokemon)
+    });
+  }
+
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
   }
 
   return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList
   };
 })();
 
-movieRepository.add({name: 'Top Gun: Maverick', rating: 8.6, type:['action', 'drama']});
 
-//forEach loop to list the pokemonList
-movieRepository.getAll().forEach(function(movie) {
-  movieRepository.addListItem(movie);
+pokemonRepository.loadList().then(function() {
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });

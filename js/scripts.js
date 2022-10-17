@@ -12,9 +12,64 @@ let pokemonRepository = (function(){
     return pokemonList;
   }
 
+
+
   function showDetails(pokemon) {
-    console.log(pokemon.name);
+    let detailsContainer = document.querySelector('#details-container');
+
+    detailsContainer.innerHTML = '';
+
+    let details = document.createElement('div');
+    details.classList.add('details');
+
+    let closeButtonElement = document.createElement('button');
+
+  closeButtonElement.classList.add('details-close');
+  closeButtonElement.innerText = 'Close';
+
+  closeButtonElement.addEventListener('click', hideDetails);
+
+    let titleElement = document.createElement('h1');
+    let titleElement.innerText = pokemon.name;
+
+    let typeElement = document.createElement('p');
+    typeElement.innerText = pokemon.type;
+
+    let sizeElement = document.createElement('p');
+    sizeElement.innerText = pokemon.size;
+
+  details.appendChild(closeButtonElement);
+    details.appendChild(titleElement);
+    details.appendChild(typeElement);
+    details.appendChild(sizeElement);
+    detailsContainer.appendChild(details);
+
+    detailsContainer.classList.add(is-visible);
+
+  detailsContainer.addEventListener('click', (e) => {
+    let target = e.target;
+    if (target === detailsContainer) {
+      hideDetails();
+    }
+  });
+
+}
+
+  function hideDetails() {
+    let detailsContainer = document.querySelector('#details-container');
+    detailsContainer.classList.remove('is-visible');
   }
+
+  window.addEventListener('keydown', (e) => {
+    let detailsContainer = document.querySelector('#details-container');
+    if (e.key === 'Escape' && detailsContainer.classList.contains('is-visible')) {
+      hideDetails();
+    }
+  });
+
+    pokemon.addEventListener('click', () => {
+      showDetails();
+    });
 
   function addListItem(pokemon) {
     let pokemonListed = document.querySelector('.pokemon-list');

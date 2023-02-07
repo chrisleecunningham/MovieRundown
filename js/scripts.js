@@ -29,7 +29,6 @@ function addListItem (pokemon) {
     button.classList.add("button-class");
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
-    // listens for a button click and the logs to the console the details (why do I need to put this under addListItem)
     button.addEventListener("click", function(Event) {
     showDetails(pokemon);
    });
@@ -41,7 +40,6 @@ function loadList() {
         // convert response to json
         return response.json();
     }).then (function (json) {
-        // api uses 'results' for array of pokemon. Each result, we are calling item. For each item, we assign keys to parameters (items from api)
         json.results.forEach(function (item) {
             let pokemon = {
                 name: item.name,

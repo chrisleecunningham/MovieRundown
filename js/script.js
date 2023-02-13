@@ -28,7 +28,7 @@ function addListItem (pokemon) {
     $('li').addClass('group-list-item');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add("button-class btn ");
+    button.classList.add("button-class");
     button.setAttribute('aria-label', pokemon.name);
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);

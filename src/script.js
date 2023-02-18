@@ -9,12 +9,12 @@ let pokemonRepository = (function () {
 //adds pokemon with .push, if object
 function add(pokemon) {
     if (
-    typeof pokemon === "object" &&
-   "name" in pokemon
+    typeof pokemon === 'object' &&
+   'name' in pokemon
 ) {
     pokemonList.push(pokemon);
 } else {
-    console.log("pokemon is not correct");
+    console.log('pokemon is not correct');
 }
 }
 
@@ -23,16 +23,16 @@ function getAll() {
 }
 
 function addListItem (pokemon) {
-    let pokemonList = document.querySelector(".pokemon-list");
+    let pokemonList = document.querySelector('.pokemon-list');
     let listPokemon = document.createElement('li');
     $('li').addClass('group-list-item');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add("button-class");
+    button.classList.add('button-class');
     button.setAttribute('aria-label', pokemon.name);
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
-    button.addEventListener("click", function(Event) {
+    button.addEventListener('click', function() {
     showDetails(pokemon);
    });
 }
@@ -99,7 +99,7 @@ function showDetails (item) {
             let contentElement = document.createElement ('p');
 
             // variable declared as empty string to be used to store the names of the types
-            let pokemonTypes = "";
+            let pokemonTypes = '';
 
             // for loop used to iterate through the item.types object.
             for (let i = 0; i < item.types.length; i++) {
@@ -107,7 +107,7 @@ function showDetails (item) {
                 pokemonTypes += item.types[i].type.name;
                 //if i is less than length - 1, a comma and space are added to typeNames (to avoid adding comma after las type)
                 if (i < item.types.length - 1) {
-                    pokemonTypes += ", ";
+                    pokemonTypes += ', ';
                 }
             }
 
